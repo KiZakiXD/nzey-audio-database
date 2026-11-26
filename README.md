@@ -14,7 +14,7 @@ Makanya database ini dibangun dengan 3 kelas suara:
 
 Dari sisi pengujian NZey Player, database ini dipakai buat mastiin pemutar tetap stabil dan enak didengar waktu berhadapan sama materi audio yang karakternya beda-beda jauh — dari ambience pelan sampai benturan keras — termasuk nguji normalisasi volume dan respons DSP-nya. Dari sisi N'Zey Assistant, database yang sama dipakai sebagai bahan pelatihan pengenalan suara: asisten dilatih membedakan mana suara normal, mana suara benturan, dan mana teriakan, supaya ke depannya bisa ngasih respons yang tepat sesuai situasi, bukan asal bunyi keras dianggap sama semua.
 
-Total isi database ini 450 klip, masing-masing kelas 150 klip, semuanya seragam formatnya supaya gampang dipakai ulang buat pengujian maupun pelatihan berikutnya.
+Total isi database ini 3.604 klip — casual 1.225, crash 1.132, scream 1.247 — semuanya seragam formatnya supaya gampang dipakai ulang buat pengujian maupun pelatihan berikutnya.
 
 ## Spesifikasi teknis
 
@@ -33,14 +33,14 @@ Format 16 kHz mono ini dipilih karena itu format standar input model pengenalan 
 
 | Kelas | Total | Asli | Augmentasi |
 |---|---|---|---|
-| casual | 150 | 125 | 25 |
-| crash | 150 | 82 | 68 |
-| scream | 150 | 103 | 47 |
-| Total | 450 | 310 | 140 |
+| casual | 1.225 | 1.200 | 25 |
+| crash | 1.132 | 1.064 | 68 |
+| scream | 1.247 | 1.200 | 47 |
+| Total | 3.604 | 3.464 | 140 |
 
 File-nya disusun per folder kelas: casual/casual_001.wav, crash/crash_001.wav, scream/scream_001.wav, dan seterusnya.
 
-Sebagian klip adalah hasil augmentasi, dan itu ditandai apa adanya di metadata.csv (kolom augmented, tekniknya ditulis di notes). Tekniknya standar: pitch shift ±2 semitone, tempo 0.9/1.1, gain ±3 dB, dan campuran noise latar yang pelan. Tiap klip augmentasi diturunkan dari klip asli yang beda-beda, dan porsinya selalu di bawah 50% per kelas. Kelas crash paling banyak augmentasinya karena rekaman benturan yang bagus memang paling susah dicari.
+Sebagian kecil klip adalah hasil augmentasi, dan itu ditandai apa adanya di metadata.csv (kolom augmented, tekniknya ditulis di notes). Tekniknya standar: pitch shift ±2 semitone, tempo 0.9/1.1, gain ±3 dB, dan campuran noise latar yang pelan. Tiap klip augmentasi diturunkan dari klip asli yang beda-beda. Klip augmentasi ini sisa dari batch pertama (dulu totalnya cuma 450 klip) — waktu database ini diperbesar, semua klip tambahannya asli, jadi porsi augmentasi sekarang tinggal 2–6% per kelas, jauh di bawah batas maksimal 50%.
 
 Satu hal penting soal pemakaian: klip augmentasi itu turunan klip asli. Kalau database ini dipakai buat pelatihan model dan datanya mau dibagi train/val/test, klip asli dan semua turunannya harus tetap berada di split yang sama (group split berdasarkan klip asal), supaya nggak terjadi kebocoran data yang bikin akurasi kelihatan lebih bagus dari aslinya.
 
